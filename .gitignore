@@ -1,0 +1,51 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.js
+
+# Construccion
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# Variables de entorno — NUNCA subir credenciales al repositorio
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Registros
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Pruebas
+coverage/
+.nyc_output/
+
+# Supabase local
+supabase/.branches
+supabase/.temp
+supabase/.env
+
+# Temporales
+tmp/
+temp/
+*.tmp
