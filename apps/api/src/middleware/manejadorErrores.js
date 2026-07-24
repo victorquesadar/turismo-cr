@@ -13,8 +13,7 @@ export function manejadorErrores(error, req, res, _next) {
   );
 
   const estado = error.estado ?? 500;
-  const mensaje =
-    estado === 500 ? 'Ocurrio un error al procesar la solicitud.' : error.message;
+  const mensaje = estado === 500 ? 'Ocurrio un error al procesar la solicitud.' : error.message;
 
   res.status(estado).json({ mensaje });
 }

@@ -10,20 +10,20 @@ Este proyecto usa un flujo basado en ramas de funcionalidad.
 4. Subir la rama: `git push -u origin feat/RF-15-filtro-provincia`
 5. Abrir un Pull Request hacia `main`
 6. La otra persona revisa y aprueba
-7. Fusionar con *squash merge* y borrar la rama
+7. Fusionar con _squash merge_ y borrar la rama
 
 Nunca se hace commit directo sobre `main`.
 
 ## Nomenclatura de ramas
 
-| Prefijo | Uso | Ejemplo |
-|---|---|---|
-| `feat/` | Nueva funcionalidad | `feat/RF-30-marcar-favorito` |
-| `fix/` | Corrección de error | `fix/RF-24-marcadores-duplicados` |
-| `docs/` | Solo documentación | `docs/actualizar-arquitectura` |
+| Prefijo     | Uso                                   | Ejemplo                             |
+| ----------- | ------------------------------------- | ----------------------------------- |
+| `feat/`     | Nueva funcionalidad                   | `feat/RF-30-marcar-favorito`        |
+| `fix/`      | Corrección de error                   | `fix/RF-24-marcadores-duplicados`   |
+| `docs/`     | Solo documentación                    | `docs/actualizar-arquitectura`      |
 | `refactor/` | Reestructuración sin cambio funcional | `refactor/extraer-cliente-supabase` |
-| `test/` | Pruebas | `test/RF-42-recuperacion-rag` |
-| `chore/` | Configuración, dependencias | `chore/configurar-eslint` |
+| `test/`     | Pruebas                               | `test/RF-42-recuperacion-rag`       |
+| `chore/`    | Configuración, dependencias           | `chore/configurar-eslint`           |
 
 Cuando la rama implementa un requerimiento del SRS, se incluye su código (`RF-XX` o `RNF-XX`).
 
@@ -59,9 +59,9 @@ Tipos válidos: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
 
 Según lo acordado en la propuesta de TFG:
 
-| Área | Responsable principal |
-|---|---|
-| Frontend, interfaz, mapa | Manuel Mora Sandí |
+| Área                                  | Responsable principal    |
+| ------------------------------------- | ------------------------ |
+| Frontend, interfaz, mapa              | Manuel Mora Sandí        |
 | Base de datos, API, asistente virtual | Víctor Quesada Rodríguez |
 
 Ambas personas revisan el trabajo de la otra antes de fusionar.

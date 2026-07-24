@@ -2,14 +2,14 @@
 
 ## Nomenclatura de archivos
 
-| Tipo | Convención | Ejemplo |
-|---|---|---|
-| Componente React | PascalCase | `TarjetaSitio.jsx` |
-| Hook | camelCase con prefijo `use` | `useFiltrosCatalogo.js` |
-| Servicio | camelCase | `sitiosService.js` |
-| Utilidad | camelCase | `formatearPrecio.js` |
-| Constantes | camelCase | `provincias.js` |
-| Estilos de módulo | igual al componente | `TarjetaSitio.module.css` |
+| Tipo              | Convención                  | Ejemplo                   |
+| ----------------- | --------------------------- | ------------------------- |
+| Componente React  | PascalCase                  | `TarjetaSitio.jsx`        |
+| Hook              | camelCase con prefijo `use` | `useFiltrosCatalogo.js`   |
+| Servicio          | camelCase                   | `sitiosService.js`        |
+| Utilidad          | camelCase                   | `formatearPrecio.js`      |
+| Constantes        | camelCase                   | `provincias.js`           |
+| Estilos de módulo | igual al componente         | `TarjetaSitio.module.css` |
 
 ## Nomenclatura en código
 
@@ -54,7 +54,7 @@ export default function TarjetaSitio({ sitio, onSeleccionar }) {
 
 ## Comentarios
 
-Se comenta el *porqué*, no el *qué*. Si el código necesita explicar qué hace,
+Se comenta el _porqué_, no el _qué_. Si el código necesita explicar qué hace,
 conviene renombrar en lugar de comentar.
 
 Cuando un bloque implementa un requerimiento del SRS, se indica su código:
