@@ -110,8 +110,8 @@ Los controladores no contienen lógica de negocio; los servicios no conocen HTTP
 
 ## Despliegue previsto
 
-| Componente | Servicio | Capa |
-|---|---|---|
-| `apps/web` | Vercel | Gratuita |
-| `apps/api` | Render | Gratuita |
+| Componente                   | Servicio | Capa     |
+| ---------------------------- | -------- | -------- |
+| `apps/web`                   | Vercel   | Gratuita |
+| `apps/api`                   | Render   | Gratuita |
 | Base de datos, auth, storage | Supabase | Gratuita |

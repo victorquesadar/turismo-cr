@@ -51,15 +51,15 @@ El frontend queda en `http://localhost:5173` y la API en `http://localhost:3000`
 
 ## Comandos disponibles
 
-| Comando | Descripción |
-|---|---|
-| `npm run dev` | Levanta frontend y API simultáneamente |
-| `npm run dev:web` | Levanta solo el frontend |
-| `npm run dev:api` | Levanta solo la API |
-| `npm run build` | Construye ambas aplicaciones para producción |
-| `npm run lint` | Ejecuta ESLint sobre todo el repositorio |
-| `npm run format` | Formatea el código con Prettier |
-| `npm run test` | Ejecuta las pruebas automatizadas |
+| Comando           | Descripción                                  |
+| ----------------- | -------------------------------------------- |
+| `npm run dev`     | Levanta frontend y API simultáneamente       |
+| `npm run dev:web` | Levanta solo el frontend                     |
+| `npm run dev:api` | Levanta solo la API                          |
+| `npm run build`   | Construye ambas aplicaciones para producción |
+| `npm run lint`    | Ejecuta ESLint sobre todo el repositorio     |
+| `npm run format`  | Formatea el código con Prettier              |
+| `npm run test`    | Ejecuta las pruebas automatizadas            |
 
 ## Documentación
 

@@ -15,11 +15,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={RUTAS.inicio} element={<Marcador nombre="Descubrir" modulo="M02, M03, M04" />} />
+        <Route
+          path={RUTAS.inicio}
+          element={<Marcador nombre="Descubrir" modulo="M02, M03, M04" />}
+        />
         <Route path={RUTAS.mapa} element={<Marcador nombre="Mapa interactivo" modulo="M04" />} />
         <Route path={RUTAS.sitio} element={<Marcador nombre="Ficha del sitio" modulo="M02" />} />
         <Route path={RUTAS.favoritos} element={<Marcador nombre="Mis favoritos" modulo="M05" />} />
-        <Route path={RUTAS.asistente} element={<Marcador nombre="Asistente virtual" modulo="M06" />} />
+        <Route
+          path={RUTAS.asistente}
+          element={<Marcador nombre="Asistente virtual" modulo="M06" />}
+        />
         <Route path={RUTAS.ingreso} element={<Marcador nombre="Iniciar sesion" modulo="M01" />} />
         <Route path={RUTAS.registro} element={<Marcador nombre="Registro" modulo="M01" />} />
         <Route path={RUTAS.admin} element={<Marcador nombre="Administracion" modulo="M07" />} />

@@ -4,19 +4,19 @@
 
 Derivadas del capítulo 6 del SRS.
 
-| Tabla | Descripción | Requerimientos |
-|---|---|---|
-| `usuarios` | Personas registradas en el sistema | RF-01 a RF-07 |
-| `provincias` | Catálogo de provincias de Costa Rica | RF-15, RF-27 |
-| `categorias` | Tipos de actividad turística | RF-16, RF-57 |
-| `etiquetas` | Etiquetas descriptivas de los sitios | RF-08, RF-57 |
-| `sitios_turisticos` | Catálogo principal de sitios | RF-08 a RF-14, RF-53 a RF-61 |
-| `sitio_etiquetas` | Relación entre sitios y etiquetas | RF-08, RF-33 |
-| `imagenes` | Galería de cada sitio | RF-10, RF-55 |
-| `favoritos` | Lugares guardados por usuario | RF-30 a RF-37 |
-| `conversaciones` | Sesiones con el asistente virtual | RF-48, RF-49 |
-| `mensajes` | Mensajes de cada conversación | RF-38, RF-45, RF-48 |
-| `preferencias_detectadas` | Criterios extraídos por el asistente | RF-40, RF-41 |
+| Tabla                     | Descripción                          | Requerimientos               |
+| ------------------------- | ------------------------------------ | ---------------------------- |
+| `usuarios`                | Personas registradas en el sistema   | RF-01 a RF-07                |
+| `provincias`              | Catálogo de provincias de Costa Rica | RF-15, RF-27                 |
+| `categorias`              | Tipos de actividad turística         | RF-16, RF-57                 |
+| `etiquetas`               | Etiquetas descriptivas de los sitios | RF-08, RF-57                 |
+| `sitios_turisticos`       | Catálogo principal de sitios         | RF-08 a RF-14, RF-53 a RF-61 |
+| `sitio_etiquetas`         | Relación entre sitios y etiquetas    | RF-08, RF-33                 |
+| `imagenes`                | Galería de cada sitio                | RF-10, RF-55                 |
+| `favoritos`               | Lugares guardados por usuario        | RF-30 a RF-37                |
+| `conversaciones`          | Sesiones con el asistente virtual    | RF-48, RF-49                 |
+| `mensajes`                | Mensajes de cada conversación        | RF-38, RF-45, RF-48          |
+| `preferencias_detectadas` | Criterios extraídos por el asistente | RF-40, RF-41                 |
 
 ## Convenciones
 
@@ -44,12 +44,12 @@ Formato del nombre: `AAAAMMDDHHMMSS_descripcion_breve.sql`.
 
 Supabase permite políticas de acceso por fila. Se aplican para cumplir RNF-14 y RNF-21:
 
-| Tabla | Política |
-|---|---|
+| Tabla               | Política                                                     |
+| ------------------- | ------------------------------------------------------------ |
 | `sitios_turisticos` | Lectura pública solo de registros con `estado = 'publicado'` |
-| `favoritos` | Cada persona accede únicamente a sus propios registros |
-| `conversaciones` | Cada persona accede únicamente a sus propias conversaciones |
-| `mensajes` | Accesibles solo a través de una conversación propia |
+| `favoritos`         | Cada persona accede únicamente a sus propios registros       |
+| `conversaciones`    | Cada persona accede únicamente a sus propias conversaciones  |
+| `mensajes`          | Accesibles solo a través de una conversación propia          |
 
 Las operaciones de escritura sobre el catálogo quedan restringidas al rol
 administrador, verificadas en el servidor.

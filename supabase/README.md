@@ -5,7 +5,7 @@
 Las migraciones se aplican en orden alfabético. Nunca se edita una migración
 ya aplicada; todo cambio de esquema es un archivo nuevo.
 
-Para aplicarlas desde el panel de Supabase: *SQL Editor* → pegar el contenido
+Para aplicarlas desde el panel de Supabase: _SQL Editor_ → pegar el contenido
 de cada archivo en orden y ejecutar.
 
 Con la CLI de Supabase:
