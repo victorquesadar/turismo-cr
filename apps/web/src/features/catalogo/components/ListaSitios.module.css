@@ -1,0 +1,33 @@
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+
+.esqueleto {
+  aspect-ratio: 16 / 19;
+  border-radius: var(--radio);
+  background: linear-gradient(
+    90deg,
+    var(--color-fondo-alterno) 25%,
+    #eef1f4 50%,
+    var(--color-fondo-alterno) 75%
+  );
+  background-size: 200% 100%;
+  animation: pulso 1.4s ease-in-out infinite;
+}
+
+@keyframes pulso {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.mensaje {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+}
