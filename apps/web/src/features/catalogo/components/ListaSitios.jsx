@@ -28,11 +28,7 @@ export default function ListaSitios({ sitios, cargando, error }) {
 
   if (sitios.length === 0) {
     // RF-23: informar y sugerir ampliar criterios.
-    return (
-      <p className={estilos.mensaje}>
-        No hay sitios turísticos disponibles por el momento.
-      </p>
-    );
+    return <p className={estilos.mensaje}>No hay sitios turísticos disponibles por el momento.</p>;
   }
 
   return (

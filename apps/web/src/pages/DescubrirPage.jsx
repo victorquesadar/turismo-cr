@@ -17,8 +17,8 @@ export default function DescubrirPage() {
       <header className={estilos.encabezado}>
         <h1 className={estilos.titulo}>Descubre Costa Rica</h1>
         <p className={estilos.subtitulo}>
-          Explora sitios turísticos de todo el país, desde los destinos más conocidos
-          hasta lugares que pocos han visitado.
+          Explora sitios turísticos de todo el país, desde los destinos más conocidos hasta lugares
+          que pocos han visitado.
         </p>
       </header>
 
