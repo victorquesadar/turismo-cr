@@ -4,10 +4,16 @@ import estilos from './ListaSitios.module.css';
 /**
  * Rejilla de tarjetas del catalogo (RF-08).
  *
- * Distingue los tres estados de carga para dar retroalimentacion
- * visual en todos los casos (RNF-03) y cubre el resultado vacio (RF-23).
+ * Distingue los estados de carga (RNF-03) y separa el resultado vacio por
+ * ausencia de datos del resultado vacio por filtros (RF-23).
  */
-export default function ListaSitios({ sitios, cargando, error }) {
+export default function ListaSitios({
+  sitios,
+  cargando,
+  error,
+  hayFiltrosActivos = false,
+  onLimpiar,
+}) {
   if (cargando) {
     return (
       <div className={estilos.rejilla} aria-busy="true" aria-live="polite">
@@ -27,7 +33,19 @@ export default function ListaSitios({ sitios, cargando, error }) {
   }
 
   if (sitios.length === 0) {
-    // RF-23: informar y sugerir ampliar criterios.
+    // RF-23: si el vacio proviene de los filtros, se sugiere ampliarlos.
+    if (hayFiltrosActivos) {
+      return (
+        <div className={estilos.mensaje}>
+          <p>Ningún sitio coincide con los filtros seleccionados.</p>
+          {onLimpiar && (
+            <button type="button" className={estilos.accion} onClick={onLimpiar}>
+              Limpiar filtros
+            </button>
+          )}
+        </div>
+      );
+    }
     return <p className={estilos.mensaje}>No hay sitios turísticos disponibles por el momento.</p>;
   }
 

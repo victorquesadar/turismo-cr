@@ -1,0 +1,39 @@
+.grupo {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.etiqueta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+  margin-bottom: 0.45rem;
+  padding: 0;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pastilla {
+  font-size: 0.82rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-borde);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  transition: all 0.12s ease;
+}
+
+.pastilla:hover {
+  border-color: var(--color-primario);
+}
+
+.activa {
+  background: var(--color-primario);
+  border-color: var(--color-primario);
+  color: #fff;
+}
