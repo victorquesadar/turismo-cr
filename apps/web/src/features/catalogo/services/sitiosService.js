@@ -2,8 +2,6 @@ import { supabase } from '@/services/supabaseClient';
 
 /**
  * Campos que necesitan la tarjeta del catalogo (RF-08) y el mapa (RF-24).
- * Se piden explicitamente en lugar de select('*') para no traer columnas
- * que la vista no usa. Las coordenadas se incluyen para los marcadores.
  */
 const CAMPOS_TARJETA = `
   id,
@@ -21,12 +19,31 @@ const CAMPOS_TARJETA = `
 `;
 
 /**
- * Recupera los sitios turisticos publicados.
- *
- * La politica de seguridad a nivel de fila ya restringe el resultado a
- * estado = 'publicado' (RNF-14), por lo que no hace falta filtrarlo aca.
- *
- * @returns {Promise<Array>} sitios listos para renderizar en tarjetas y mapa
+ * Campos completos para la ficha de detalle (RF-09 a RF-13).
+ * Agrega canton, direccion, temporada y las etiquetas asociadas.
+ */
+const CAMPOS_FICHA = `
+  id,
+  nombre,
+  descripcion,
+  latitud,
+  longitud,
+  direccion,
+  canton,
+  temporada_recomendada,
+  presupuesto,
+  duracion,
+  es_accesible,
+  es_poco_conocido,
+  provincia:provincias ( codigo, nombre ),
+  categoria:categorias ( codigo, nombre ),
+  imagenes ( url, texto_alternativo, orden ),
+  sitio_etiquetas ( etiquetas ( nombre ) )
+`;
+
+/**
+ * Recupera los sitios turisticos publicados para el catalogo y el mapa.
+ * La politica RLS ya restringe el resultado a estado = 'publicado' (RNF-14).
  */
 export async function obtenerSitios() {
   const { data, error } = await supabase
@@ -35,7 +52,6 @@ export async function obtenerSitios() {
     .order('nombre', { ascending: true });
 
   if (error) {
-    // RNF-23: el detalle tecnico se registra, el usuario ve un mensaje claro.
     console.error('Error al consultar sitios turisticos:', error.message);
     throw new Error('No fue posible cargar los sitios turisticos.');
   }
@@ -44,12 +60,31 @@ export async function obtenerSitios() {
 }
 
 /**
- * Aplana la respuesta de Supabase a la forma que consumen los componentes.
- * Las imagenes llegan sin orden garantizado, asi que se ordenan aca.
- * Las coordenadas se convierten a numero para Leaflet.
+ * Recupera un unico sitio con todos sus datos para la ficha (RF-09).
+ *
+ * @param {string} id  identificador del sitio
+ * @returns {Promise<Object|null>}  el sitio, o null si no existe o no esta publicado
  */
+export async function obtenerSitioPorId(id) {
+  const { data, error } = await supabase
+    .from('sitios_turisticos')
+    .select(CAMPOS_FICHA)
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error al consultar el sitio:', error.message);
+    throw new Error('No fue posible cargar el sitio turistico.');
+  }
+
+  if (!data) return null;
+
+  return normalizarFicha(data);
+}
+
+/** Aplana un sitio para las tarjetas y el mapa. */
 function normalizarSitio(registro) {
-  const imagenes = [...(registro.imagenes ?? [])].sort((a, b) => a.orden - b.orden);
+  const imagenes = ordenarImagenes(registro.imagenes);
 
   return {
     id: registro.id,
@@ -65,4 +100,33 @@ function normalizarSitio(registro) {
     categoria: registro.categoria,
     imagenPrincipal: imagenes[0] ?? null,
   };
+}
+
+/** Aplana un sitio completo para la ficha de detalle. */
+function normalizarFicha(registro) {
+  return {
+    id: registro.id,
+    nombre: registro.nombre,
+    descripcion: registro.descripcion,
+    latitud: Number(registro.latitud),
+    longitud: Number(registro.longitud),
+    direccion: registro.direccion,
+    canton: registro.canton,
+    temporada: registro.temporada_recomendada,
+    presupuesto: registro.presupuesto,
+    duracion: registro.duracion,
+    esAccesible: registro.es_accesible,
+    esPocoConocido: registro.es_poco_conocido,
+    provincia: registro.provincia,
+    categoria: registro.categoria,
+    imagenes: ordenarImagenes(registro.imagenes),
+    etiquetas: (registro.sitio_etiquetas ?? [])
+      .map((se) => se.etiquetas?.nombre)
+      .filter(Boolean),
+  };
+}
+
+/** Ordena las imagenes por su campo orden. */
+function ordenarImagenes(imagenes) {
+  return [...(imagenes ?? [])].sort((a, b) => a.orden - b.orden);
 }

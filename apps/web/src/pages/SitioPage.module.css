@@ -1,0 +1,148 @@
+.pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--color-primario);
+  text-decoration: none;
+}
+
+.volver:hover {
+  text-decoration: underline;
+}
+
+.contenido {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.principal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ubicacion {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.titulo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.distintivos {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.distintivo {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-primario-claro);
+  color: var(--color-primario);
+}
+
+.destacado {
+  background: #fdf0e3;
+  color: #b45309;
+}
+
+.descripcion {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--color-texto);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+}
+
+.etiqueta {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: var(--color-fondo-alterno);
+  color: var(--color-texto-suave);
+}
+
+.lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  padding: 1.2rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  position: sticky;
+  top: 1rem;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dato dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-texto-suave);
+}
+
+.dato dd {
+  font-size: 0.95rem;
+  color: var(--color-texto);
+}
+
+.esqueleto {
+  height: 400px;
+  border-radius: var(--radio);
+  background: var(--color-fondo-alterno);
+  animation: pulso 1.4s ease-in-out infinite;
+}
+
+@keyframes pulso {
+  50% { opacity: 0.5; }
+}
+
+.mensaje {
+  padding: 2rem 0;
+  color: var(--color-texto-suave);
+}
+
+@media (max-width: 860px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+  .lateral {
+    position: static;
+  }
+}
