@@ -1,0 +1,32 @@
+.pagina {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.encabezado {
+  margin-bottom: 1.5rem;
+}
+
+.titulo {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.subtitulo {
+  color: var(--color-texto-suave);
+  max-width: 46rem;
+}
+
+.conteo {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+  margin-bottom: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .titulo {
+    font-size: 1.5rem;
+  }
+}
