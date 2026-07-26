@@ -16,7 +16,7 @@ export const config = {
   puerto: Number(process.env.PORT ?? 3000),
   supabaseUrl: requerida('SUPABASE_URL'),
   supabaseServiceKey: requerida('SUPABASE_SERVICE_KEY'),
-  geminiApiKey: requerida('GEMINI_API_KEY'),
+  geminiApiKey: process.env.GEMINI_API_KEY ?? '',
   corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
   rateLimitMax: Number(process.env.RATE_LIMIT_MAX ?? 20),
 };
