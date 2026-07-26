@@ -1,7 +1,7 @@
 .pagina {
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 3rem;
+  padding: 3rem 1.25rem 3rem;
 }
 
 .encabezado {
@@ -19,10 +19,32 @@
   max-width: 46rem;
 }
 
+.contenido {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
 .conteo {
   font-size: 0.85rem;
   color: var(--color-texto-suave);
   margin-bottom: 0.9rem;
+}
+
+/* La rejilla de tarjetas dentro de la columna se hace mas angosta. */
+.columnaLista :global(.rejilla) {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+@media (max-width: 900px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .columnaMapa {
+    order: -1;
+  }
 }
 
 @media (max-width: 640px) {
