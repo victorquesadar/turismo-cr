@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { rutaSitio } from '@/lib/rutas';
 import { simboloPresupuesto, nombreDuracion, resumir } from '../lib/formato';
+import BotonFavorito from '@/features/favoritos/components/BotonFavorito';
 import estilos from './TarjetaSitio.module.css';
 
 /**
  * Tarjeta de un sitio turistico en el catalogo (RF-08).
- *
- * Muestra imagen, nombre, provincia, descripcion breve y etiquetas,
- * mas los distintivos de accesibilidad (RF-12) y lugar poco conocido (RF-13).
+ * Incluye el boton de favorito (RF-30) y los distintivos de
+ * accesibilidad (RF-12) y lugar poco conocido (RF-13).
  */
 export default function TarjetaSitio({ sitio }) {
   return (
@@ -23,6 +23,10 @@ export default function TarjetaSitio({ sitio }) {
         ) : (
           <div className={estilos.imagenAusente} aria-hidden="true" />
         )}
+
+        <div className={estilos.favorito}>
+          <BotonFavorito sitioId={sitio.id} />
+        </div>
 
         <div className={estilos.distintivos}>
           {sitio.esAccesible && <span className={estilos.distintivo}>Accesible</span>}

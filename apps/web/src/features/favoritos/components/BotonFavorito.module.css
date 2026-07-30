@@ -1,0 +1,22 @@
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #6b7280;
+  backdrop-filter: blur(4px);
+  transition: all 0.15s ease;
+}
+
+.boton:hover {
+  color: #dc2626;
+  transform: scale(1.08);
+}
+
+.activo {
+  color: #dc2626;
+}

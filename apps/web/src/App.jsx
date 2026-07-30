@@ -1,25 +1,28 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RUTAS } from './lib/rutas';
+import Encabezado from './components/layout/Encabezado';
+import PanelAuth from './features/autenticacion/components/PanelAuth';
 import DescubrirPage from './pages/DescubrirPage';
 import SitioPage from './pages/SitioPage';
+import FavoritosPage from './pages/FavoritosPage';
 
 /**
  * Punto de entrada de la aplicacion.
  *
- * Etapa 1 (en curso): M02 Catalogo, M03 Filtros, M04 Mapa.
- * Las paginas de las etapas siguientes aun muestran un marcador.
+ * La autenticacion ya no es una pagina: se resuelve en el panel deslizante
+ * PanelAuth, que se abre desde el encabezado o al intentar una accion que
+ * requiere sesion. Por eso no hay rutas para ingreso ni registro.
  */
 export default function App() {
   return (
     <BrowserRouter>
+      <Encabezado />
+      <PanelAuth />
       <Routes>
         <Route path={RUTAS.inicio} element={<DescubrirPage />} />
         <Route path={RUTAS.sitio} element={<SitioPage />} />
-        <Route path={RUTAS.mapa} element={<Marcador nombre="Mapa interactivo" modulo="M04" />} />
-        <Route path={RUTAS.favoritos} element={<Marcador nombre="Mis favoritos" modulo="M05" />} />
+        <Route path={RUTAS.favoritos} element={<FavoritosPage />} />
         <Route path={RUTAS.asistente} element={<Marcador nombre="Asistente virtual" modulo="M06" />} />
-        <Route path={RUTAS.ingreso} element={<Marcador nombre="Iniciar sesion" modulo="M01" />} />
-        <Route path={RUTAS.registro} element={<Marcador nombre="Registro" modulo="M01" />} />
         <Route path={RUTAS.admin} element={<Marcador nombre="Administracion" modulo="M07" />} />
         <Route path="*" element={<Marcador nombre="Pagina no encontrada" modulo="-" />} />
       </Routes>

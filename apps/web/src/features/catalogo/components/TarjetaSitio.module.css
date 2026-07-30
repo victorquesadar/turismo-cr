@@ -31,6 +31,12 @@
   background: linear-gradient(135deg, #e8f0ea 0%, #d4e4da 100%);
 }
 
+.favorito {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
 .distintivos {
   position: absolute;
   bottom: 0.5rem;

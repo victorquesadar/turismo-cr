@@ -1,0 +1,94 @@
+.barra {
+  border-bottom: 1px solid var(--color-borde);
+  background: var(--color-fondo);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.contenido {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--color-primario);
+}
+
+.navegacion {
+  display: flex;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.enlace {
+  font-size: 0.92rem;
+  color: var(--color-texto-suave);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.enlace:hover {
+  color: var(--color-texto);
+}
+
+.activo {
+  color: var(--color-primario);
+  border-bottom-color: var(--color-primario);
+}
+
+.sesion {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.saludo {
+  font-size: 0.88rem;
+  color: var(--color-texto-suave);
+}
+
+.botonTexto {
+  font-size: 0.9rem;
+  color: var(--color-texto);
+  background: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.botonTexto:hover {
+  color: var(--color-primario);
+}
+
+.botonPrimario {
+  font-size: 0.9rem;
+  padding: 0.45rem 0.95rem;
+  background: var(--color-primario);
+  color: #fff;
+  border-radius: var(--radio);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .saludo {
+    display: none;
+  }
+  .contenido {
+    gap: 1rem;
+  }
+}
