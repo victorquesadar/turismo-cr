@@ -8,10 +8,10 @@ import estilos from './Encabezado.module.css';
 
 /**
  * Barra de navegacion principal.
- * Los accesos de sesion abren el panel deslizante en lugar de navegar.
+ * Muestra el acceso al panel de administracion solo a administradores.
  */
 export default function Encabezado() {
-  const { estaAutenticado, nombre } = useAuth();
+  const { estaAutenticado, esAdministrador, nombre } = useAuth();
   const { cantidad } = useFavoritos();
   const { abrir } = usePanelAuth();
 
@@ -32,6 +32,11 @@ export default function Encabezado() {
           <NavLink to={RUTAS.favoritos} className={claseEnlace}>
             Favoritos{estaAutenticado && cantidad > 0 ? ` (${cantidad})` : ''}
           </NavLink>
+          {esAdministrador && (
+            <NavLink to={RUTAS.admin} className={claseEnlace}>
+              Administración
+            </NavLink>
+          )}
         </nav>
 
         <div className={estilos.sesion}>

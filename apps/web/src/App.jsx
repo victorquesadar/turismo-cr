@@ -2,16 +2,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RUTAS } from './lib/rutas';
 import Encabezado from './components/layout/Encabezado';
 import PanelAuth from './features/autenticacion/components/PanelAuth';
+import RutaAdmin from './features/autenticacion/components/RutaAdmin';
 import DescubrirPage from './pages/DescubrirPage';
 import SitioPage from './pages/SitioPage';
 import FavoritosPage from './pages/FavoritosPage';
+import AdminSitiosPage from './pages/admin/AdminSitiosPage';
+import SitioFormPage from './pages/admin/SitioFormPage';
 
 /**
  * Punto de entrada de la aplicacion.
  *
- * La autenticacion ya no es una pagina: se resuelve en el panel deslizante
- * PanelAuth, que se abre desde el encabezado o al intentar una accion que
- * requiere sesion. Por eso no hay rutas para ingreso ni registro.
+ * Etapa 1 (lista): catalogo, filtros, mapa, ficha.
+ * Etapa 2 (lista): autenticacion y favoritos.
+ * Etapa 3 (en curso): administracion del catalogo, protegida por rol.
+ * Etapa 4 (pendiente): asistente virtual.
  */
 export default function App() {
   return (
@@ -22,8 +26,12 @@ export default function App() {
         <Route path={RUTAS.inicio} element={<DescubrirPage />} />
         <Route path={RUTAS.sitio} element={<SitioPage />} />
         <Route path={RUTAS.favoritos} element={<FavoritosPage />} />
+
+        <Route path={RUTAS.admin} element={<RutaAdmin><AdminSitiosPage /></RutaAdmin>} />
+        <Route path={RUTAS.adminNuevo} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
+        <Route path={RUTAS.adminEditar} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
+
         <Route path={RUTAS.asistente} element={<Marcador nombre="Asistente virtual" modulo="M06" />} />
-        <Route path={RUTAS.admin} element={<Marcador nombre="Administracion" modulo="M07" />} />
         <Route path="*" element={<Marcador nombre="Pagina no encontrada" modulo="-" />} />
       </Routes>
     </BrowserRouter>

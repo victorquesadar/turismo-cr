@@ -4,40 +4,59 @@ import { supabase } from '@/services/supabaseClient';
 const AuthContext = createContext(null);
 
 /**
- * Provee el estado de sesion a toda la aplicacion.
- * Escucha los cambios de autenticacion de Supabase para mantener
- * el usuario actualizado sin recargar la pagina.
+ * Provee el estado de sesion y el rol del usuario a toda la aplicacion.
+ * El rol se lee de la tabla perfiles y determina el acceso al panel de
+ * administracion (RF-06).
  */
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
+  const [rol, setRol] = useState(null);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    // Sesion existente al abrir la aplicacion.
     supabase.auth.getSession().then(({ data }) => {
-      setUsuario(data.session?.user ?? null);
-      setCargando(false);
+      const u = data.session?.user ?? null;
+      setUsuario(u);
+      if (u) cargarRol(u.id);
+      else setCargando(false);
     });
 
-    // Cambios posteriores: login, logout, expiracion.
     const { data: suscripcion } = supabase.auth.onAuthStateChange((_evento, sesion) => {
-      setUsuario(sesion?.user ?? null);
+      const u = sesion?.user ?? null;
+      setUsuario(u);
+      if (u) {
+        cargarRol(u.id);
+      } else {
+        setRol(null);
+        setCargando(false);
+      }
     });
 
     return () => suscripcion.subscription.unsubscribe();
   }, []);
 
+  async function cargarRol(idUsuario) {
+    const { data } = await supabase
+      .from('perfiles')
+      .select('rol')
+      .eq('id', idUsuario)
+      .maybeSingle();
+    setRol(data?.rol ?? 'turista');
+    setCargando(false);
+  }
+
   const valor = {
     usuario,
+    rol,
     cargando,
     estaAutenticado: Boolean(usuario),
+    esAdministrador: rol === 'administrador',
     nombre: usuario?.user_metadata?.nombre ?? usuario?.email ?? '',
   };
 
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>;
 }
 
-/** Hook para consumir el estado de sesion desde cualquier componente. */
 export function useAuth() {
   const contexto = useContext(AuthContext);
   if (contexto === null) {

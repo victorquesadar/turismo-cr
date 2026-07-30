@@ -8,6 +8,8 @@ export const RUTAS = {
   ingreso: '/ingreso',
   registro: '/registro',
   admin: '/admin',
+  adminNuevo: '/admin/nuevo',
+  adminEditar: '/admin/editar/:id',
 };
 
 /** Construye la ruta de la ficha de un sitio. */
