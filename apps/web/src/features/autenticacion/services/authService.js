@@ -1,4 +1,5 @@
 import { supabase } from '@/services/supabaseClient';
+import { normalizarCredenciales, traducirError } from './authUtils';
 
 /**
  * Operaciones de autenticacion contra Supabase Auth (RF-01 a RF-05).
@@ -6,28 +7,50 @@ import { supabase } from '@/services/supabaseClient';
  */
 
 /** RF-01: registro con correo y contrasena. */
-export async function registrar({ nombre, correo, contrasena }) {
+export async function registrar(datos) {
+  const credenciales = normalizarCredenciales(datos);
   const { data, error } = await supabase.auth.signUp({
-    email: correo,
-    password: contrasena,
+    email: credenciales.correo,
+    password: credenciales.contrasena,
     options: {
-      data: { nombre },
+      data: { nombre: credenciales.nombre },
     },
+  });
+
+  if (error) throw new Error(traducirError(error.message));
+
+  return {
+    usuario: data.user,
+    necesitaConfirmacion: !data.session,
+    mensaje: data.session ? 'Cuenta creada correctamente.' : 'Cuenta creada. Revisá tu correo para confirmar la sesión.',
+  };
+}
+
+/** RF-02: inicio de sesion. */
+export async function iniciarSesion(datos) {
+  const credenciales = normalizarCredenciales(datos);
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: credenciales.correo,
+    password: credenciales.contrasena,
   });
 
   if (error) throw new Error(traducirError(error.message));
   return data.user;
 }
 
-/** RF-02: inicio de sesion. */
-export async function iniciarSesion({ correo, contrasena }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: correo,
-    password: contrasena,
+/** RF-02 alternativa: inicio de sesion con Google. */
+export async function iniciarSesionConGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: obtenerRedirectTo(),
+      queryParams: {
+        prompt: 'select_account',
+      },
+    },
   });
 
   if (error) throw new Error(traducirError(error.message));
-  return data.user;
 }
 
 /** RF-03: cierre de sesion. */
@@ -36,14 +59,10 @@ export async function cerrarSesion() {
   if (error) throw new Error('No fue posible cerrar la sesión.');
 }
 
-/** Traduce los mensajes de error de Supabase a texto claro (RNF-23). */
-function traducirError(mensaje) {
-  const mapa = {
-    'Invalid login credentials': 'Correo o contraseña incorrectos.',
-    'User already registered': 'Ya existe una cuenta con este correo.',
-    'Password should be at least 6 characters':
-      'La contraseña debe tener al menos 6 caracteres.',
-    'Unable to validate email address: invalid format': 'El correo no tiene un formato válido.',
-  };
-  return mapa[mensaje] ?? 'Ocurrió un error. Intentá de nuevo.';
+function obtenerRedirectTo() {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+
+  return `${window.location.origin}${window.location.pathname}`;
 }

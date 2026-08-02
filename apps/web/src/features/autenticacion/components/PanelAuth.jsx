@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { usePanelAuth } from '../PanelAuthContext';
-import { registrar, iniciarSesion } from '../services/authService';
+import { registrar, iniciarSesion, iniciarSesionConGoogle } from '../services/authService';
 import FormularioAuth from './FormularioAuth';
 import estilos from './PanelAuth.module.css';
 
@@ -11,6 +11,7 @@ import estilos from './PanelAuth.module.css';
 export default function PanelAuth() {
   const { abierto, modo, setModo, cerrar } = usePanelAuth();
   const [cargando, setCargando] = useState(false);
+  const [cargandoGoogle, setCargandoGoogle] = useState(false);
   const [error, setError] = useState(null);
 
   const esRegistro = modo === 'registro';
@@ -19,6 +20,14 @@ export default function PanelAuth() {
   useEffect(() => {
     setError(null);
   }, [modo, abierto]);
+
+  useEffect(() => {
+    if (!abierto) {
+      setCargando(false);
+      setCargandoGoogle(false);
+      setError(null);
+    }
+  }, [abierto]);
 
   // Cierra con la tecla Escape.
   useEffect(() => {
@@ -42,6 +51,18 @@ export default function PanelAuth() {
       setError(e.message);
     } finally {
       setCargando(false);
+    }
+  };
+
+  const manejarGoogle = async () => {
+    setCargandoGoogle(true);
+    setError(null);
+
+    try {
+      await iniciarSesionConGoogle();
+    } catch (e) {
+      setError(e.message);
+      setCargandoGoogle(false);
     }
   };
 
@@ -72,9 +93,12 @@ export default function PanelAuth() {
           </p>
 
           <FormularioAuth
+            key={`${abierto ? 'abierto' : 'cerrado'}-${modo}`}
             modo={esRegistro ? 'registro' : 'ingreso'}
             onEnviar={manejarEnvio}
+            onGoogle={manejarGoogle}
             cargando={cargando}
+            cargandoGoogle={cargandoGoogle}
             error={error}
           />
 
