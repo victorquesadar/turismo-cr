@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { validarCredenciales } from '../services/authUtils';
 import estilos from './FormularioAuth.module.css';
+import { FcGoogle } from "react-icons/fc";
 
 /**
  * Formulario compartido por registro e inicio de sesion.
@@ -136,7 +137,8 @@ export default function FormularioAuth({ modo, onEnviar, onGoogle, cargando, car
       </div>
 
       <button type="button" className={estilos.botonGoogle} onClick={onGoogle} disabled={cargando || cargandoGoogle}>
-        {cargandoGoogle ? 'Abriendo Google…' : 'Continuar con Google'}
+        <FcGoogle />
+        {cargandoGoogle ? ' Abriendo Google…' : ' Continuar con Google'}
       </button>
     </form>
   );

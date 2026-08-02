@@ -1,12 +1,13 @@
 .panel {
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio);
-  padding: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: var(--radio-lg);
+  padding: 1.2rem;
   margin-bottom: 1.5rem;
-  background: var(--color-fondo);
+  background: var(--color-surface-fuerte);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: var(--sombra);
 }
 
 .busqueda {
@@ -15,15 +16,17 @@
 
 .entrada {
   width: 100%;
-  padding: 0.6rem 0.85rem;
+  padding: 0.8rem 0.95rem;
   border: 1px solid var(--color-borde);
-  border-radius: var(--radio);
+  border-radius: 0.9rem;
   font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .entrada:focus {
   outline: none;
   border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px rgba(15, 122, 87, 0.12);
 }
 
 .grupos {
