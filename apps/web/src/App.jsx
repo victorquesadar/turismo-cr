@@ -8,6 +8,7 @@ import SitioPage from './pages/SitioPage';
 import FavoritosPage from './pages/FavoritosPage';
 import AdminSitiosPage from './pages/admin/AdminSitiosPage';
 import SitioFormPage from './pages/admin/SitioFormPage';
+import SistemaPrincipal from './features/busqueda/SistemaPrincipal';
 
 export default function App() {
   return (
@@ -37,10 +38,7 @@ function MarcoAplicacion() {
         <Route path={RUTAS.admin} element={<RutaAdmin><AdminSitiosPage /></RutaAdmin>} />
         <Route path={RUTAS.adminNuevo} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
         <Route path={RUTAS.adminEditar} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
-        
-        {/* Redirige /asistente y /busqueda-manual a la página principal (opcional) */}
-        <Route path={RUTAS.asistente} element={<DescubrirPage />} />
-        <Route path={RUTAS.mapa} element={<DescubrirPage />} />
+        <Route path={RUTAS.mapa} element={<SistemaPrincipal />} />
         
         <Route path="*" element={<Marcador nombre="Página no encontrada" modulo="-" />} />
       </Routes>

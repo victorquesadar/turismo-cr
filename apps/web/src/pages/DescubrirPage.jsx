@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { RUTAS } from '@/lib/rutas';
 import estilos from './DescubrirPage.module.css';
 import Encabezado from '@/components/layout/Encabezado';
-import SistemaPrincipal from '@/features/busqueda/SistemaPrincipal';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaArrowRight } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { RiTargetFill } from "react-icons/ri";
+import { RiTargetFill, RiRobot2Fill } from "react-icons/ri";
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -14,13 +13,11 @@ export default function DescubrirPage() {
   const location = useLocation();
 
   useEffect(() => {
-    // Si hay un hash en la URL, hacer scroll al elemento
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        // Ajusta el offset si tienes un header fijo
-        const offset = 100; // altura del header + padding
+        const offset = 100;
         const top = element.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -33,7 +30,7 @@ export default function DescubrirPage() {
       <section id="principal" className={estilos.hero} aria-labelledby="titulo-principal">
         <div className={estilos.heroImagen}></div>
         <div className={estilos.heroOverlay}></div>
-        
+
          <div className={estilos.headerWrapper}>
           <Encabezado />
         </div>
@@ -53,46 +50,73 @@ export default function DescubrirPage() {
         </div>
       </section>
 
-      {/* ===== SECCIÓN 2: CÓMO FUNCIONA ===== */}
-      <section className={estilos.seccionComoFunciona}>
-        <div className={estilos.contenedor}>
-          <div className={estilos.encabezadoSeccion}>
-            <h2>Encontrá tu destino en <span className={estilos.destacado}>tres pasos</span></h2>
-          </div>
+      {/* ===== BLOQUE COMPARTIDO: fondo único e ininterrumpido para ambas secciones ===== */}
+      <div className={estilos.bloqueFondoCompartido}>
+        {/* ===== SECCIÓN 2: CÓMO FUNCIONA ===== */}
+        <section className={estilos.seccionComoFunciona}>
+          <div className={estilos.contenedor}>
+            <div className={estilos.encabezadoSeccion}>
+              <h2>Encontrá tu destino en tres pasos</h2>
+            </div>
 
-          <div className={estilos.pasos}>
-            <div className={estilos.paso}>
-             <div className={estilos.iconoPaso}>
-              <FaSearch />
-            </div>
-              <h3>Explorá</h3>
-              <p>Navegá por nuestro catálogo de destinos curados en todo Costa Rica</p>
-            </div>
-            <div className={estilos.paso}>
-              <div className={estilos.iconoPaso}>
-                <RiTargetFill />
+            <div className={estilos.pasos}>
+              <div className={`${estilos.ctaCard} glass`}>
+               <div className={estilos.iconoPaso}>
+                <FaSearch />
               </div>
-              <h3>Filtrá</h3>
-              <p>Usá filtros por provincia, interés, presupuesto y tipo de actividad</p>
-            </div>
-            <div className={estilos.paso}>
-              <div className={estilos.iconoPaso}>
-                <FaMapLocationDot />
+                <h3>Explorá</h3>
+                <p>Navegá por nuestro catálogo de destinos curados en todo Costa Rica</p>
               </div>
-              <h3>Ubicá</h3>
-              <p>Visualizá todos los sitios en el mapa interactivo y planificá tu ruta</p>
+              <div className={`${estilos.ctaCard} glass`}>
+                <div className={estilos.iconoPaso}>
+                  <RiTargetFill />
+                </div>
+                <h3>Filtrá</h3>
+                <p>Usá filtros por provincia, interés, presupuesto y tipo de actividad</p>
+              </div>
+              <div className={`${estilos.ctaCard} glass`}>
+                <div className={estilos.iconoPaso}>
+                  <FaMapLocationDot />
+                </div>
+                <h3>Ubicá</h3>
+                <p>Visualizá todos los sitios en el mapa interactivo y planificá tu ruta</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-       <SistemaPrincipal />
+        {/* ===== SECCIÓN 3: CTA AL SISTEMA DE BÚSQUEDA + ASISTENTE ===== */}
+        <section className={estilos.seccionAccesoSistema} id="ir-al-sistema">
+          <div className={estilos.contenedor}>
+            <div className={`${estilos.accesoCard} glass`}>
+              <div className={estilos.accesoTexto}>
+                <span className={estilos.etiquetaAcceso}>Búsqueda + Asistente IA</span>
+                <h2>
+                  Buscá con filtros y charlá con nuestro <span className={estilos.destacado}>asistente virtual</span>
+                </h2>
+                <p>
+                  Accedé al buscador interactivo con mapa en tiempo real y un asistente
+                  que te recomienda destinos según lo que buscás.
+                </p>
+              </div>
+              <div className={estilos.accesoAcciones}>
+                <Link to={RUTAS.mapa} className={estilos.botonPrimario}>
+                  <RiRobot2Fill />
+                  Descubrir
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
-      {/* ===== SECCIÓN 5: CTA FINAL ===== */}
-      <section className={estilos.seccionCta}>
+      {/* ===== SECCIÓN 4: CTA FINAL ===== */}
+     <section className={estilos.seccionCta}>
         <div className={estilos.contenedor}>
-          <div className={estilos.ctaCard}>
-            <h2>¿Listo para <span className={estilos.destacado}>explorar</span> Costa Rica?</h2>
+          <div className={`${estilos.ctaCard} glass`}>
+            <h2>
+              ¿Listo para <span className={estilos.destacado}>explorar</span> Costa Rica?
+            </h2>
             <p>Empezá ahora a descubrir los mejores destinos con recomendaciones curadas</p>
           </div>
         </div>
@@ -137,7 +161,7 @@ export default function DescubrirPage() {
               <a href="#" aria-label="YouTube">▶️</a>
             </div>
             <p className={estilos.footerContacto}>info@descubrecr.com</p>
-            <p className={estilos.footerContacto}>+506 2222-3333</p>
+            <p className={estilos.footerContacto}>+506 6256-7524</p>
           </div>
         </div>
 

@@ -87,21 +87,41 @@
 }
 
 /* ===== SECCIONES BLANCAS ===== */
-.seccionComoFunciona,
-.seccionBusqueda,
-.seccionAsistente,
 .seccionCta {
-  background: #ffffff;
+   background:
+        url('/imagenes/bandera.jpg') center/cover;
+}
+
+/* Contenedor compartido: UNA sola imagen de fondo para ambas secciones,
+   con el mismo tratamiento visual que .hero (bordes redondeados +
+   margen blanco arriba/abajo, ya que .pagina tiene fondo #f0f4f8). */
+.bloqueFondoCompartido {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.bloqueFondoCompartido::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/imagenes/Vendedor.jpg') center/cover;
+  z-index: 0;
+}
+
+/* Las secciones ya no tienen fondo propio: son transparentes y dejan
+   ver el ::before del wrapper, que es una sola imagen sin cortes. */
+.seccionComoFunciona,
+.seccionAccesoSistema {
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }
 
 .seccionComoFunciona {
   padding: 5rem 0 4rem;
-}
-
-.seccionBusqueda,
-.seccionAsistente {
-  padding: 4rem 0;
-  border-top: 1px solid #e8edf2;
 }
 
 .contenedor {
@@ -182,61 +202,46 @@
   margin: 0 auto 3rem;
 }
 
-.encabezadoSeccion .etiqueta {
-  background: rgba(15, 122, 87, 0.08);
-  color: #0a5c3f;
-  border: 1px solid rgba(15, 122, 87, 0.1);
-  backdrop-filter: none;
-}
-
 .encabezadoSeccion h2 {
   font-size: clamp(2rem, 3.5vw, 3rem);
   margin-top: 0.8rem;
   line-height: 1.1;
-  color: #1a1a1a;
-}
-
-.destacado {
-  background: linear-gradient(135deg, #0f7a57, #16a06c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .pasos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-}
-
-.paso {
-  padding: 2rem 1.5rem;
-  border-radius: 1.2rem;
-  background: #f8fafc;
-  border: 1px solid #e8edf2;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .paso:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 24px 40px rgba(5, 17, 15, 0.25);
 }
 
 .iconoPaso {
   font-size: 2.8rem;
   margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .paso h3 {
   font-size: 1.3rem;
+  font-weight: 700;
   margin-bottom: 0.4rem;
   color: #1a1a1a;
 }
 
 .paso p {
-  color: #555;
+  color: #5f6f68;
   font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 /* ===== SECCIÓN: BÚSQUEDA Y ASISTENTE ===== */
@@ -247,69 +252,11 @@
   align-items: center;
 }
 
-.infoVistaPrevia .etiqueta {
-  background: rgba(15, 122, 87, 0.08);
-  color: #0a5c3f;
-  border: 1px solid rgba(15, 122, 87, 0.1);
-  backdrop-filter: none;
-}
-
 .infoVistaPrevia h2 {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   line-height: 1.1;
   margin: 0.6rem 0 0.8rem;
   color: #1a1a1a;
-}
-
-.infoVistaPrevia p {
-  color: #555;
-  font-size: 1.05rem;
-  max-width: 32rem;
-  margin-bottom: 1.5rem;
-}
-
-.previewCard {
-  padding: 2.5rem;
-  border-radius: 1.2rem;
-  background: #f8fafc;
-  border: 1px solid #e8edf2;
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.previewCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
-.previewContent {
-  text-align: center;
-}
-
-.previewIcon {
-  font-size: 4rem;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.previewContent p {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.previewBadge {
-  display: inline-block;
-  margin-top: 0.6rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(15, 122, 87, 0.08);
-  color: #0a5c3f;
-  font-size: 0.78rem;
-  font-weight: 600;
 }
 
 /* ===== SECCIÓN: CTA FINAL ===== */
@@ -319,22 +266,19 @@
 
 .ctaCard {
   padding: 3.5rem 2rem;
-  border-radius: 1.2rem;
+  border-radius: 1.5rem;
   text-align: center;
-  background: linear-gradient(135deg, rgba(15, 122, 87, 0.04), rgba(246, 183, 60, 0.04));
-  border: 1px solid #e8edf2;
 }
 
 .ctaCard h2 {
   font-size: clamp(2rem, 3.5vw, 3.2rem);
-  margin-bottom: 0.6rem;
-  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  color: #fff;
 }
 
 .ctaCard p {
-  color: #555;
+  color: rgba(255,255,255,.85);
   font-size: 1.1rem;
-  margin-bottom: 1.5rem;
 }
 
 /* ===== FOOTER ===== */
@@ -482,4 +426,92 @@
   width: 1em;
   height: 1em;
   display: block;
+}
+
+.seccionAccesoSistema {
+  padding: 4rem 0;
+}
+
+.accesoCard {
+  padding: 3rem 2.5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.etiquetaAcceso {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.accesoTexto {
+  max-width: 34rem;
+}
+
+.accesoTexto h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.accesoTexto .destacado {
+  background: none;
+  -webkit-text-fill-color: initial;
+  color: #baf3d4;
+}
+
+.accesoTexto p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.accesoAcciones {
+  flex-shrink: 0;
+}
+
+.seccionAccesoSistema .botonPrimario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.seccionAccesoSistema .botonPrimario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 760px) {
+  .accesoCard {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .accesoAcciones {
+    width: 100%;
+  }
+  .seccionAccesoSistema .botonPrimario {
+    width: 100%;
+    justify-content: center;
+  }
 }
