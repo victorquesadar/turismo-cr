@@ -1,0 +1,42 @@
+.panel {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 1rem;
+  background: var(--color-fondo);
+}
+
+.titulo {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-texto-suave);
+  margin-bottom: 0.75rem;
+}
+
+.lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.etiqueta {
+  font-size: 0.82rem;
+  color: var(--color-texto-suave);
+}
+
+.valor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  background: var(--color-primario-claro);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}

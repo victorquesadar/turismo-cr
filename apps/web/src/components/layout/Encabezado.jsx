@@ -8,7 +8,6 @@ import estilos from './Encabezado.module.css';
 
 /**
  * Barra de navegacion principal.
- * Muestra el acceso al panel de administracion solo a administradores.
  */
 export default function Encabezado() {
   const { estaAutenticado, esAdministrador, nombre } = useAuth();
@@ -28,6 +27,9 @@ export default function Encabezado() {
         <nav className={estilos.navegacion}>
           <NavLink to={RUTAS.inicio} className={claseEnlace} end>
             Descubrir
+          </NavLink>
+          <NavLink to={RUTAS.asistente} className={claseEnlace}>
+            Asistente
           </NavLink>
           <NavLink to={RUTAS.favoritos} className={claseEnlace}>
             Favoritos{estaAutenticado && cantidad > 0 ? ` (${cantidad})` : ''}
