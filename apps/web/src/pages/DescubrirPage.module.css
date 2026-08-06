@@ -1,54 +1,517 @@
 .pagina {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 3rem 1.25rem 3rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 100svh;
+  padding: 1.2rem;
+  background: #f0f4f8;
 }
 
-.encabezado {
-  margin-bottom: 1.5rem;
+.hero {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: calc(100svh - 2.4rem); 
+  border-radius: 1.5rem;
+  margin-bottom: 0;
+  background: #1a1a1a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.contenidoCompleto {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: inherit;
+  width: 100%;
+}
+
+.heroImagen {
+  position: absolute;
+  inset: 0;
+  background: url('/imagenes/PlayaLindaPuntarenas.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 0;
+  border-radius: 1.5rem;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 122, 87, 0.15) 0%,
+    rgba(10, 92, 63, 0.10) 50%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  z-index: 1;
+  border-radius: 1.5rem;
+}
+
+.heroCapa {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  padding: clamp(1.2rem, 3vw, 2.3rem);
+  padding-top: 0;
+}
+
+.heroTexto {
+  max-width: 44rem;
+  padding: 0.5rem 0 0.8rem;
 }
 
 .titulo {
-  font-size: 1.9rem;
+  font-size: clamp(2.8rem, 6vw, 6.2rem);
   font-weight: 700;
-  margin-bottom: 0.4rem;
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  color: #fff;
+  text-wrap: balance;
 }
 
 .subtitulo {
-  color: var(--color-texto-suave);
-  max-width: 46rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 26rem;
+  font-size: 1.04rem;
+  line-height: 1.65;
+  margin-top: 0.8rem;
 }
 
-.contenido {
+/* ===== SECCIONES BLANCAS ===== */
+.seccionCta {
+   background:
+        url('/imagenes/bandera.jpg') center/cover;
+}
+
+/* Contenedor compartido: UNA sola imagen de fondo para ambas secciones,
+   con el mismo tratamiento visual que .hero (bordes redondeados +
+   margen blanco arriba/abajo, ya que .pagina tiene fondo #f0f4f8). */
+.bloqueFondoCompartido {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.bloqueFondoCompartido::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/imagenes/Vendedor.jpg') center/cover;
+  z-index: 0;
+}
+
+/* Las secciones ya no tienen fondo propio: son transparentes y dejan
+   ver el ::before del wrapper, que es una sola imagen sin cortes. */
+.seccionComoFunciona,
+.seccionAccesoSistema {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+.seccionComoFunciona {
+  padding: 5rem 0 4rem;
+}
+
+.contenedor {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ===== ETIQUETA ===== */
+.etiqueta {
+  display: inline-flex;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===== BOTONES ===== */
+.botonPrimario,
+.botonSecundario,
+.botonCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botonPrimario {
+  color: #fff;
+  background: linear-gradient(135deg, #0f7a57, #16a06c);
+  box-shadow: 0 4px 16px rgba(15, 122, 87, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.botonPrimario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(15, 122, 87, 0.4);
+}
+
+.botonSecundario {
+  color: #1a1a1a;
+  border: 1px solid #d0d5d9;
+  background: #ffffff;
+}
+
+.botonSecundario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.botonCta {
+  background: linear-gradient(135deg, #0f7a57, #16a06c);
+  color: #fff;
+  padding: 0.85rem 2.4rem;
+  box-shadow: 0 4px 16px rgba(15, 122, 87, 0.3);
+}
+
+.botonCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(15, 122, 87, 0.4);
+}
+
+/* ===== SECCIÓN: CÓMO FUNCIONA ===== */
+.encabezadoSeccion {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 3rem;
+}
+
+.encabezadoSeccion h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin-top: 0.8rem;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.pasos {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  align-items: start;
+  position: relative;
+  z-index: 2;
 }
 
-.conteo {
+.paso:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 24px 40px rgba(5, 17, 15, 0.25);
+}
+
+.iconoPaso {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paso h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #1a1a1a;
+}
+
+.paso p {
+  color: #5f6f68;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== SECCIÓN: BÚSQUEDA Y ASISTENTE ===== */
+.vistaPrevia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.infoVistaPrevia h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.1;
+  margin: 0.6rem 0 0.8rem;
+  color: #1a1a1a;
+}
+
+/* ===== SECCIÓN: CTA FINAL ===== */
+.seccionCta {
+  padding: 3rem 0 2rem;
+}
+
+.ctaCard {
+  padding: 3.5rem 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+}
+
+.ctaCard h2 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.ctaCard p {
+  color: rgba(255,255,255,.85);
+  font-size: 1.1rem;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #ffffff;
+  border-top: 2px solid #e8edf2;
+  padding: 3rem 1.25rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.footerContenedor {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e8edf2;
+}
+
+.footerColumna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footerLogo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #10211b;
+  letter-spacing: -0.03em;
+}
+
+.footerLogo .logoD {
+  color: #10211b;
+}
+.footerLogo .logoC {
+  color: #3b82f6;
+}
+.footerLogo .logoR {
+  color: #ef4444;
+}
+
+.footerDescripcion {
+  font-size: 0.95rem;
+  color: #5f6f68;
+  line-height: 1.6;
+  max-width: 22rem;
+}
+
+.footerColumna h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #10211b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.footerColumna a {
+  font-size: 0.9rem;
+  color: #5f6f68;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerColumna a:hover {
+  color: #0f7a57;
+}
+
+.footerSocial {
+  display: flex;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.footerSocial a {
+  color: #5f6f68;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footerSocial a:hover {
+  color: #0f7a57;
+  transform: scale(1.1);
+}
+
+.footerContacto {
+  font-size: 0.9rem;
+  color: #5f6f68;
+  margin: 0;
+}
+
+.footerBarra {
+  max-width: 1360px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+}
+
+.footerBarra p {
   font-size: 0.85rem;
-  color: var(--color-texto-suave);
-  margin-bottom: 0.9rem;
+  color: #999;
 }
 
-/* La rejilla de tarjetas dentro de la columna se hace mas angosta. */
-.columnaLista :global(.rejilla) {
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-
-@media (max-width: 900px) {
-  .contenido {
-    grid-template-columns: 1fr;
+/* ===== RESPONSIVE FOOTER ===== */
+@media (max-width: 960px) {
+  .footerContenedor {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
   }
-
-  .columnaMapa {
-    order: -1;
+  .footerColumna:first-child {
+    grid-column: 1 / -1;
+  }
+  .footerDescripcion {
+    max-width: 100%;
   }
 }
 
 @media (max-width: 640px) {
-  .titulo {
-    font-size: 1.5rem;
+  .footerContenedor {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .footerColumna:first-child {
+    grid-column: auto;
+  }
+  .footerSocial {
+    justify-content: center;
+  }
+  .footerColumna {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.iconoPaso {
+  font-size: 2.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconoPaso svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+.seccionAccesoSistema {
+  padding: 4rem 0;
+}
+
+.accesoCard {
+  padding: 3rem 2.5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.etiquetaAcceso {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.accesoTexto {
+  max-width: 34rem;
+}
+
+.accesoTexto h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.accesoTexto .destacado {
+  background: none;
+  -webkit-text-fill-color: initial;
+  color: #baf3d4;
+}
+
+.accesoTexto p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.accesoAcciones {
+  flex-shrink: 0;
+}
+
+.seccionAccesoSistema .botonPrimario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.seccionAccesoSistema .botonPrimario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 760px) {
+  .accesoCard {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .accesoAcciones {
+    width: 100%;
+  }
+  .seccionAccesoSistema .botonPrimario {
+    width: 100%;
+    justify-content: center;
   }
 }

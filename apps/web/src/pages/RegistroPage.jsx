@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { registrar } from '@/features/autenticacion/services/authService';
+import { registrar, iniciarSesionConGoogle } from '@/features/autenticacion/services/authService';
 import FormularioAuth from '@/features/autenticacion/components/FormularioAuth';
 import { RUTAS } from '@/lib/rutas';
 import estilos from './AuthPage.module.css';
@@ -9,6 +9,7 @@ import estilos from './AuthPage.module.css';
 export default function RegistroPage() {
   const navegar = useNavigate();
   const [cargando, setCargando] = useState(false);
+  const [cargandoGoogle, setCargandoGoogle] = useState(false);
   const [error, setError] = useState(null);
 
   const manejarRegistro = async (datos) => {
@@ -24,6 +25,18 @@ export default function RegistroPage() {
     }
   };
 
+  const manejarGoogle = async () => {
+    setCargandoGoogle(true);
+    setError(null);
+
+    try {
+      await iniciarSesionConGoogle();
+    } catch (e) {
+      setError(e.message);
+      setCargandoGoogle(false);
+    }
+  };
+
   return (
     <main className={estilos.pagina}>
       <div className={estilos.tarjeta}>
@@ -32,7 +45,14 @@ export default function RegistroPage() {
           Registrate para guardar tus lugares favoritos y usar el asistente virtual.
         </p>
 
-        <FormularioAuth modo="registro" onEnviar={manejarRegistro} cargando={cargando} error={error} />
+        <FormularioAuth
+          modo="registro"
+          onEnviar={manejarRegistro}
+          onGoogle={manejarGoogle}
+          cargando={cargando}
+          cargandoGoogle={cargandoGoogle}
+          error={error}
+        />
 
         <p className={estilos.alterno}>
           ¿Ya tenés cuenta? <Link to={RUTAS.ingreso}>Iniciá sesión</Link>

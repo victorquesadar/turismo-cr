@@ -14,28 +14,32 @@ export default function Encabezado() {
   const { cantidad } = useFavoritos();
   const { abrir } = usePanelAuth();
 
-  const claseEnlace = ({ isActive }) =>
-    `${estilos.enlace} ${isActive ? estilos.activo : ''}`;
+  const enlaces = [
+    { to: { pathname: '/', hash: 'sobre-nosotros' }, label: 'Sobre nosotros' },
+    { to: { pathname: '/', hash: 'asistente' }, label: 'Búsqueda por IA' },
+    { to: { pathname: '/', hash: 'busqueda-manual' }, label: 'Búsqueda manual' },
+  ];
 
   return (
     <header className={estilos.barra}>
       <div className={estilos.contenido}>
         <Link to={RUTAS.inicio} className={estilos.logo}>
-          Descubre<span>CR</span>
+          <span className={estilos.logoD}>D</span>escubre
+          <span className={estilos.logoC}>C</span>
+          <span className={estilos.logoR}>R</span>
         </Link>
 
         <nav className={estilos.navegacion}>
-          <NavLink to={RUTAS.inicio} className={claseEnlace} end>
-            Descubrir
-          </NavLink>
-          <NavLink to={RUTAS.asistente} className={claseEnlace}>
-            Asistente
-          </NavLink>
-          <NavLink to={RUTAS.favoritos} className={claseEnlace}>
+          {enlaces.map((enlace) => (
+            <Link key={enlace.label} to={enlace.to} className={estilos.enlace}>
+              {enlace.label}
+            </Link>
+          ))}
+          <NavLink to={RUTAS.favoritos} className={estilos.enlace}>
             Favoritos{estaAutenticado && cantidad > 0 ? ` (${cantidad})` : ''}
           </NavLink>
           {esAdministrador && (
-            <NavLink to={RUTAS.admin} className={claseEnlace}>
+            <NavLink to={RUTAS.admin} className={estilos.enlace}>
               Administración
             </NavLink>
           )}
@@ -50,14 +54,9 @@ export default function Encabezado() {
               </button>
             </>
           ) : (
-            <>
-              <button type="button" className={estilos.botonTexto} onClick={() => abrir('ingreso')}>
-                Iniciar sesión
-              </button>
-              <button type="button" className={estilos.botonPrimario} onClick={() => abrir('registro')}>
-                Registrarse
-              </button>
-            </>
+            <button type="button" className={estilos.botonPrimario} onClick={() => abrir('ingreso')}>
+              Iniciar sesión
+            </button>
           )}
         </div>
       </div>

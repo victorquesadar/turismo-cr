@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { RUTAS } from './lib/rutas';
-import Encabezado from './components/layout/Encabezado';
 import PanelAuth from './features/autenticacion/components/PanelAuth';
 import RutaAdmin from './features/autenticacion/components/RutaAdmin';
 import DescubrirPage from './pages/DescubrirPage';
@@ -9,6 +9,7 @@ import FavoritosPage from './pages/FavoritosPage';
 import AsistentePage from './pages/AsistentePage';
 import AdminSitiosPage from './pages/admin/AdminSitiosPage';
 import SitioFormPage from './pages/admin/SitioFormPage';
+import SistemaPrincipal from './features/busqueda/SistemaPrincipal';
 
 /**
  * Punto de entrada de la aplicacion.
@@ -21,7 +22,23 @@ import SitioFormPage from './pages/admin/SitioFormPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <Encabezado />
+      <MarcoAplicacion />
+    </BrowserRouter>
+  );
+}
+
+function MarcoAplicacion() {
+  const location = useLocation();
+
+  useEffect(() => {
+    document.body.classList.toggle('pagina-inicio', location.pathname === RUTAS.inicio);
+    return () => {
+      document.body.classList.remove('pagina-inicio');
+    };
+  }, [location.pathname]);
+
+  return (
+    <>
       <PanelAuth />
       <Routes>
         <Route path={RUTAS.inicio} element={<DescubrirPage />} />
@@ -32,10 +49,11 @@ export default function App() {
         <Route path={RUTAS.admin} element={<RutaAdmin><AdminSitiosPage /></RutaAdmin>} />
         <Route path={RUTAS.adminNuevo} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
         <Route path={RUTAS.adminEditar} element={<RutaAdmin><SitioFormPage /></RutaAdmin>} />
+        <Route path={RUTAS.mapa} element={<SistemaPrincipal />} />
 
-        <Route path="*" element={<Marcador nombre="Pagina no encontrada" modulo="-" />} />
+        <Route path="*" element={<Marcador nombre="Página no encontrada" modulo="-" />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
@@ -43,8 +61,8 @@ function Marcador({ nombre, modulo }) {
   return (
     <main style={{ padding: '2rem', fontFamily: 'system-ui' }}>
       <h1>{nombre}</h1>
-      <p>Modulo del SRS: {modulo}</p>
-      <p>Pendiente de implementacion.</p>
+      <p>Módulo del SRS: {modulo}</p>
+      <p>Pendiente de implementación.</p>
     </main>
   );
 }

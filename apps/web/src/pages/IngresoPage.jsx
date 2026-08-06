@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { iniciarSesion } from '@/features/autenticacion/services/authService';
+import { iniciarSesion, iniciarSesionConGoogle } from '@/features/autenticacion/services/authService';
 import FormularioAuth from '@/features/autenticacion/components/FormularioAuth';
 import { RUTAS } from '@/lib/rutas';
 import estilos from './AuthPage.module.css';
@@ -9,6 +9,7 @@ import estilos from './AuthPage.module.css';
 export default function IngresoPage() {
   const navegar = useNavigate();
   const [cargando, setCargando] = useState(false);
+  const [cargandoGoogle, setCargandoGoogle] = useState(false);
   const [error, setError] = useState(null);
 
   const manejarIngreso = async (datos) => {
@@ -24,13 +25,32 @@ export default function IngresoPage() {
     }
   };
 
+  const manejarGoogle = async () => {
+    setCargandoGoogle(true);
+    setError(null);
+
+    try {
+      await iniciarSesionConGoogle();
+    } catch (e) {
+      setError(e.message);
+      setCargandoGoogle(false);
+    }
+  };
+
   return (
     <main className={estilos.pagina}>
       <div className={estilos.tarjeta}>
         <h1 className={estilos.titulo}>Iniciar sesión</h1>
         <p className={estilos.subtitulo}>Ingresá para acceder a tus favoritos.</p>
 
-        <FormularioAuth modo="ingreso" onEnviar={manejarIngreso} cargando={cargando} error={error} />
+        <FormularioAuth
+          modo="ingreso"
+          onEnviar={manejarIngreso}
+          onGoogle={manejarGoogle}
+          cargando={cargando}
+          cargandoGoogle={cargandoGoogle}
+          error={error}
+        />
 
         <p className={estilos.alterno}>
           ¿No tenés cuenta? <Link to={RUTAS.registro}>Registrate</Link>
