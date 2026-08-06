@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { RUTAS } from '@/lib/rutas';
 import { useSitios } from '@/features/catalogo/hooks/useSitios';
 import { useFiltros } from '@/features/catalogo/hooks/useFiltros';
+import { useConversacion } from '@/features/asistente/hooks/useConversacion';
 import PanelFiltros from '@/features/catalogo/components/PanelFiltros';
 import ListaSitios from '@/features/catalogo/components/ListaSitios';
 import MapaSitios from '@/features/mapa/components/MapaSitios';
@@ -17,31 +18,17 @@ export default function SistemaPrincipal() {
   const mostrarConteo = !cargando && !error;
   const hayMapa = !cargando && !error && sitiosFiltrados.length > 0;
 
-  // Dropdown de filtros: ahora ocupa espacio en el flujo, no flota encima
   const [filtrosAbiertos, setFiltrosAbiertos] = useState(false);
-  // Panel de lista sobre el mapa
   const [listaAbierta, setListaAbierta] = useState(false);
 
-  // Estado del asistente (mock)
+  // Asistente REAL conectado al backend con RAG y Gemini.
+  const { mensajes, cargando: pensando, enviar } = useConversacion();
   const [mensajeUsuario, setMensajeUsuario] = useState('');
-  const [conversacion, setConversacion] = useState([
-    { tipo: 'asistente', texto: '¡Pura vida! ¿Qué tipo de experiencia te gustaría vivir en Costa Rica?' },
-  ]);
 
   const enviarMensaje = () => {
     if (!mensajeUsuario.trim()) return;
-    setConversacion((prev) => [...prev, { tipo: 'usuario', texto: mensajeUsuario }]);
+    enviar(mensajeUsuario);
     setMensajeUsuario('');
-
-    setTimeout(() => {
-      setConversacion((prev) => [
-        ...prev,
-        {
-          tipo: 'asistente',
-          texto: 'Gracias por tu consulta. Te recomiendo revisar los filtros de arriba para afinar tu búsqueda. ¿Querés que te sugiera algo en particular?',
-        },
-      ]);
-    }, 600);
   };
 
   const sugerencias = [
@@ -88,7 +75,6 @@ export default function SistemaPrincipal() {
           </div>
         </div>
 
-        {/* Fila de filtros: parte normal del flujo, empuja el cuerpo hacia abajo */}
         {filtrosAbiertos && (
           <div className={estilos.filaFiltros}>
             <PanelFiltros
@@ -101,7 +87,7 @@ export default function SistemaPrincipal() {
         )}
       </header>
 
-      {/* ===== CUERPO: asistente (izq, protagonista) + mapa (der, dominante) ===== */}
+      {/* ===== CUERPO: asistente (izq) + mapa (der) ===== */}
       <div className={estilos.cuerpo}>
         {/* ---- Asistente ---- */}
         <div className={estilos.panelAsistente}>
@@ -113,14 +99,40 @@ export default function SistemaPrincipal() {
           </div>
 
           <div className={estilos.chat}>
-            {conversacion.map((msg, idx) => (
+            {mensajes.length === 0 && (
+              <div className={estilos.burbujaAsistente}>
+                ¡Pura vida! ¿Qué tipo de experiencia te gustaría vivir en Costa Rica?
+              </div>
+            )}
+
+            {mensajes.map((msg, idx) => (
               <div
                 key={idx}
-                className={msg.tipo === 'usuario' ? estilos.burbujaUsuario : estilos.burbujaAsistente}
+                className={msg.emisor === 'usuario' ? estilos.burbujaUsuario : estilos.burbujaAsistente}
               >
                 {msg.texto}
+
+                {/* Enlaces a las fichas de los sitios recomendados */}
+                {msg.sitios && msg.sitios.length > 0 && (
+                  <div className={estilos.sitiosRecomendados}>
+                    {msg.sitios.map((sitio) => (
+                      <Link
+                        key={sitio.id}
+                        to={RUTAS.sitio.replace(':id', sitio.id)}
+                        className={estilos.enlaceSitio}
+                      >
+                        {sitio.nombre}
+                        {sitio.provincia ? ` · ${sitio.provincia}` : ''}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
+
+            {pensando && (
+              <div className={estilos.burbujaAsistente}>El asistente está pensando…</div>
+            )}
           </div>
 
           <div className={estilos.sugerencias}>
@@ -143,14 +155,15 @@ export default function SistemaPrincipal() {
               onChange={(e) => setMensajeUsuario(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && enviarMensaje()}
               className={estilos.input}
+              disabled={pensando}
             />
-            <button onClick={enviarMensaje} className={estilos.botonEnviar} aria-label="Enviar">
+            <button onClick={enviarMensaje} className={estilos.botonEnviar} aria-label="Enviar" disabled={pensando}>
               ➤
             </button>
           </div>
         </div>
 
-        {/* ---- Mapa (dominante, se filtra en tiempo real con sitiosFiltrados) ---- */}
+        {/* ---- Mapa ---- */}
         <div className={estilos.panelMapa}>
           {hayMapa ? (
             <MapaSitios sitios={sitiosFiltrados} />

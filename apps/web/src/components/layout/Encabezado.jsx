@@ -14,10 +14,9 @@ export default function Encabezado() {
   const { cantidad } = useFavoritos();
   const { abrir } = usePanelAuth();
 
-  const enlaces = [
+const enlaces = [
+    { to: RUTAS.mapa, label: 'Buscar destinos' },
     { to: { pathname: '/', hash: 'sobre-nosotros' }, label: 'Sobre nosotros' },
-    { to: { pathname: '/', hash: 'asistente' }, label: 'Búsqueda por IA' },
-    { to: { pathname: '/', hash: 'busqueda-manual' }, label: 'Búsqueda manual' },
   ];
 
   return (

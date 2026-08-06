@@ -7,7 +7,7 @@ import { config } from '../../config/env.js';
  */
 const genAI = new GoogleGenerativeAI(config.geminiApiKey);
 
-const modelo = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const modelo = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
 /**
  * Envia un prompt al modelo y devuelve el texto de la respuesta.

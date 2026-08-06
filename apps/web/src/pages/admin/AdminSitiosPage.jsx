@@ -36,6 +36,8 @@ export default function AdminSitiosPage() {
 
   return (
     <main className={estilos.pagina}>
+      <Link to={RUTAS.inicio} className={estilos.volver}>← Volver al inicio</Link>
+
       <header className={estilos.encabezado}>
         <div>
           <h1 className={estilos.titulo}>Administración del catálogo</h1>

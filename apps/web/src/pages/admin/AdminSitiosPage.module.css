@@ -117,3 +117,15 @@
   text-align: center;
   color: var(--color-texto-suave);
 }
+
+.volver {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-primario);
+  text-decoration: none;
+}
+
+.volver:hover {
+  text-decoration: underline;
+}

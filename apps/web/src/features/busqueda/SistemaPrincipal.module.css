@@ -391,3 +391,21 @@
     padding: 1rem;
   }
 }
+
+.sitiosRecomendados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+
+.enlaceSitio {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-primario, #1f6f4a);
+  background: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #e5e7eb;
+}
