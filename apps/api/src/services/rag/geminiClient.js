@@ -1,13 +1,16 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
 import { config } from '../../config/env.js';
 
 /**
  * Cliente del modelo de lenguaje (RF-42, RF-43).
- * Se usa un modelo rapido y economico del tier gratuito.
+ *
+ * Se usa Groq con Llama 3.3, que ofrece un tier gratuito estable.
+ * El proveedor esta aislado en este archivo: el resto del sistema RAG
+ * (extraccion de criterios, recuperacion, generacion) no cambia.
  */
-const genAI = new GoogleGenerativeAI(config.geminiApiKey);
+const groq = new Groq({ apiKey: config.groqApiKey });
 
-const modelo = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+const MODELO = 'llama-3.3-70b-versatile';
 
 /**
  * Envia un prompt al modelo y devuelve el texto de la respuesta.
@@ -15,6 +18,11 @@ const modelo = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
  * @returns {Promise<string>}
  */
 export async function generar(prompt) {
-  const resultado = await modelo.generateContent(prompt);
-  return resultado.response.text();
+  const respuesta = await groq.chat.completions.create({
+    model: MODELO,
+    messages: [{ role: 'user', content: prompt }],
+    temperature: 0.7,
+  });
+
+  return respuesta.choices[0]?.message?.content ?? '';
 }
