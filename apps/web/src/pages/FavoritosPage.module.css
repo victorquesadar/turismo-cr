@@ -1,42 +1,130 @@
 .pagina {
-  max-width: 1180px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem 3rem;
+  padding: 1.5rem 1.25rem 2rem;
+  min-height: calc(100vh - 120px);
 }
 
+/* ===== Botón volver ===== */
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-primario);
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  padding: 0.4rem 0;
+  transition: opacity 0.15s ease;
+}
+
+.volver:hover {
+  opacity: 0.7;
+}
+
+/* ===== Encabezado ===== */
 .encabezado {
+  padding-bottom: 1.1rem;
   margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tituloFila {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.iconoTitulo {
+  color: var(--color-primario);
+  font-size: 1.3rem;
 }
 
 .titulo {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.3rem;
+  color: var(--color-texto);
 }
 
 .conteo {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--color-texto-suave);
+  margin-top: 0.3rem;
 }
 
-.aviso,
+/* ===== Estado vacío ===== */
 .vacio {
   text-align: center;
-  padding: 3rem 1rem;
-  color: var(--color-texto-suave);
+  padding: 3.5rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
+.vacioIcono {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-fondo-alterno);
+  color: var(--color-primario);
+  font-size: 1.6rem;
+}
+
+.vacioTexto {
+  font-size: 0.95rem;
+  color: var(--color-texto-suave);
+}
+
+/* ===== Aviso (sin sesión) ===== */
+.aviso {
+  max-width: 400px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 2.25rem 2rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avisoIcono {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-fondo-alterno);
+  color: var(--color-primario);
+  font-size: 1.5rem;
+}
+
+.avisoTexto {
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+/* ===== Botón ===== */
 .boton {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
+  padding: 0.65rem 1.2rem;
   background: var(--color-primario);
   color: #fff;
+  border: none;
   border-radius: var(--radio);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.boton:hover {
+  opacity: 0.9;
 }
