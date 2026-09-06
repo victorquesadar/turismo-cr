@@ -10,7 +10,7 @@ import { config } from '../../config/env.js';
  */
 const groq = new Groq({ apiKey: config.groqApiKey });
 
-const MODELO = 'llama-3.3-70b-versatile';
+const MODELO = 'openai/gpt-oss-120b';
 
 /**
  * Envia un prompt al modelo y devuelve el texto de la respuesta.

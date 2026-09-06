@@ -39,9 +39,13 @@ export async function recuperarSitios(criterios) {
   if (criterios.presupuesto) consulta = consulta.eq('presupuesto', criterios.presupuesto);
   if (criterios.accesible) consulta = consulta.eq('es_accesible', true);
   if (criterios.texto) {
-    consulta = consulta.or(
-      `nombre.ilike.%${criterios.texto}%,descripcion.ilike.%${criterios.texto}%`
-    );
+    // Se limpian las comas y caracteres que rompen la sintaxis de la consulta.
+    const textoLimpio = criterios.texto.replace(/[,()]/g, ' ').trim();
+    if (textoLimpio) {
+      consulta = consulta.or(
+        `nombre.ilike.%${textoLimpio}%,descripcion.ilike.%${textoLimpio}%`
+      );
+    }
   }
 
   const { data, error } = await consulta.limit(8);

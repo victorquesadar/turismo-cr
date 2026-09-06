@@ -14,20 +14,27 @@ const ACTIVIDADES_VALIDAS = ['deporte', 'aire-libre', 'cultura', 'gastronomia', 
 const PRESUPUESTOS_VALIDOS = ['bajo', 'medio', 'alto'];
 
 export async function extraerCriterios(mensaje) {
-  const prompt = `Analiza el siguiente mensaje de una persona que busca sitios turisticos en Costa Rica y extrae los criterios de busqueda.
+  const prompt = `Sos un extractor de criterios para un buscador de sitios turisticos de Costa Rica. Analiza el mensaje y extrae SOLO los criterios que la persona menciona de forma EXPLICITA y CLARA.
 
 Mensaje: "${mensaje}"
 
-Devuelve UNICAMENTE un objeto JSON valido, sin texto adicional ni formato markdown, con esta estructura:
+Reglas de extraccion:
+- provincia: solo si la persona nombra una provincia de Costa Rica de forma explicita. Guia: playa/mar en el Pacifico norte suele ser guanacaste o puntarenas, pero NO asumas si no lo dicen.
+- actividad: elegi UNA sola si es evidente. Guia de categorias: "deporte" (surf, senderismo, aventura), "aire-libre" (playas, volcanes, naturaleza, parques), "cultura" (museos, teatros, historia), "gastronomia" (comida, mercados), "bienestar" (termales, spa, descanso).
+- presupuesto: solo si mencionan explicitamente barato/economico (bajo), moderado (medio) o lujo/caro (alto).
+- accesible: true solo si mencionan silla de ruedas, movilidad reducida o accesibilidad.
+
+IMPORTANTE: ante la MENOR duda sobre un criterio, ponelo en null. Es mejor extraer pocos criterios y encontrar mas lugares, que extraer demasiados y no encontrar nada. NO inventes criterios que no esten claros en el mensaje.
+
+Devuelve UNICAMENTE un objeto JSON valido, sin texto adicional ni markdown:
 {
   "provincia": null o uno de [${PROVINCIAS_VALIDAS.join(', ')}],
   "actividad": null o uno de [${ACTIVIDADES_VALIDAS.join(', ')}],
   "presupuesto": null o uno de [${PRESUPUESTOS_VALIDOS.join(', ')}],
-  "accesible": true si menciona silla de ruedas, movilidad reducida o accesibilidad, si no false,
-  "texto": palabras clave relevantes para buscar, o null
+  "accesible": true o false
 }
 
-Si un criterio no se menciona, ponlo en null. Responde solo el JSON.`;
+Responde solo el JSON.`;
 
   try {
     const respuesta = await generar(prompt);
@@ -36,8 +43,8 @@ Si un criterio no se menciona, ponlo en null. Responde solo el JSON.`;
     return normalizar(criterios);
   } catch (error) {
     console.error('No se pudieron extraer criterios:', error.message);
-    // Ante un fallo de parseo, se busca solo por el texto completo.
-    return { provincia: null, actividad: null, presupuesto: null, accesible: false, texto: mensaje };
+    // Ante un fallo de parseo, se devuelven criterios vacios (busqueda amplia).
+    return { provincia: null, actividad: null, presupuesto: null, accesible: false };
   }
 }
 
@@ -48,6 +55,5 @@ function normalizar(c) {
     actividad: ACTIVIDADES_VALIDAS.includes(c.actividad) ? c.actividad : null,
     presupuesto: PRESUPUESTOS_VALIDOS.includes(c.presupuesto) ? c.presupuesto : null,
     accesible: Boolean(c.accesible),
-    texto: typeof c.texto === 'string' && c.texto.trim() ? c.texto.trim() : null,
   };
 }
