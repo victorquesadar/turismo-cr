@@ -5,6 +5,7 @@ import UbicacionSitio from '@/features/catalogo/components/UbicacionSitio';
 import { simboloPresupuesto, nombreDuracion } from '@/features/catalogo/lib/formato';
 import { RUTAS } from '@/lib/rutas';
 import estilos from './SitioPage.module.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 /**
  * Ficha de detalle de un sitio turistico (RF-09 a RF-13).
@@ -41,7 +42,10 @@ export default function SitioPage() {
 
   return (
     <main className={estilos.pagina}>
-      <Link to={RUTAS.inicio} className={estilos.volver}>← Volver</Link>
+      <Link to={RUTAS.mapa} className={estilos.volver}>
+        <FaArrowLeft />
+        <span>Volver al mapa</span>
+      </Link>
 
       <div className={estilos.contenido}>
         <div className={estilos.principal}>

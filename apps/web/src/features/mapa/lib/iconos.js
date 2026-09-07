@@ -8,16 +8,16 @@ export const iconoSitio = L.divIcon({
   className: '',
   html: `
     <div style="
-      width: 22px;
-      height: 22px;
-      background: #1f6f4a;
+      width: 24px;
+      height: 24px;
+      background: #ff4757;
       border: 3px solid #fff;
       border-radius: 50% 50% 50% 0;
       transform: rotate(-45deg);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 8px rgba(48, 24, 18, 0.5);
     "></div>
   `,
-  iconSize: [22, 22],
-  iconAnchor: [11, 22],
-  popupAnchor: [0, -20],
+  iconSize: [24, 24],
+  iconAnchor: [12, 24],
+  popupAnchor: [0, -22],
 });

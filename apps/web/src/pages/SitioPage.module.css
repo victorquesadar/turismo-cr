@@ -1,32 +1,74 @@
 .pagina {
-  max-width: 1100px;
+  position: relative;
+  max-width: none;
+  min-height: 100svh;
   margin: 0 auto;
-  padding: 2rem 1.25rem 3rem;
+  padding: 1.2rem;
+  overflow: hidden;
+  background: #f0f4f8;
+}
+
+.pagina::before {
+  content: '';
+  position: absolute;
+  inset: 1.2rem;
+  border-radius: 1.5rem;
+  background: url('/imagenes/Vendedor.jpg') center / cover;
+  z-index: 0;
 }
 
 .volver {
-  display: inline-block;
-  margin-bottom: 1.2rem;
-  font-size: 0.9rem;
-  color: var(--color-primario);
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.7rem 0 1rem 0.75rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
   text-decoration: none;
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  box-shadow: 0 8px 20px rgba(5, 17, 15, 0.12);
 }
 
 .volver:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .contenido {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1.7fr 1fr;
   gap: 2rem;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.2rem;
   align-items: start;
+  border: none;
+  border-radius: 1.5rem;
+  background: transparent;
 }
 
 .principal {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  min-width: 0;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  background: rgba(8, 16, 14, 0.18);
+  box-shadow: 0 16px 34px rgba(5, 17, 15, 0.16);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
 
 .encabezado {
@@ -37,13 +79,14 @@
 
 .ubicacion {
   font-size: 0.85rem;
-  color: var(--color-texto-suave);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .titulo {
   font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.2;
+  color: #fff;
 }
 
 .distintivos {
@@ -57,19 +100,21 @@
   font-weight: 600;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: var(--color-primario-claro);
-  color: var(--color-primario);
+  background: rgba(15, 122, 87, 0.55);
+  color: #d8f6e9;
+  border: 1px solid rgba(186, 243, 212, 0.4);
 }
 
 .destacado {
-  background: #fdf0e3;
-  color: #b45309;
+  background: rgba(239, 106, 76, 0.72);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.42);
 }
 
 .descripcion {
   font-size: 0.98rem;
   line-height: 1.65;
-  color: var(--color-texto);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .etiquetas {
@@ -83,17 +128,22 @@
   font-size: 0.78rem;
   padding: 0.25rem 0.65rem;
   border-radius: 999px;
-  background: var(--color-fondo-alterno);
-  color: var(--color-texto-suave);
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .lateral {
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
-  padding: 1.2rem;
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  background: rgba(8, 16, 14, 0.18);
+  box-shadow: 0 16px 34px rgba(5, 17, 15, 0.16);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
   position: sticky;
   top: 1rem;
 }
@@ -114,12 +164,12 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: var(--color-texto-suave);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .dato dd {
   font-size: 0.95rem;
-  color: var(--color-texto);
+  color: #fff;
 }
 
 .esqueleto {

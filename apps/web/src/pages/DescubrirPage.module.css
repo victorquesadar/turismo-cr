@@ -160,20 +160,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.botonPrimario {
-  color: #fff;
-  background: linear-gradient(135deg, #0f7a57, #16a06c);
-  box-shadow: 0 4px 16px rgba(15, 122, 87, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.botonPrimario:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(15, 122, 87, 0.4);
-}
-
 .botonSecundario {
-  color: #1a1a1a;
+  color: #e8edf2;
   border: 1px solid #d0d5d9;
   background: #ffffff;
 }
@@ -235,7 +223,7 @@
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
-  color: #1a1a1a;
+  color: #e8edf2;
 }
 
 .paso p {
@@ -256,7 +244,7 @@
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   line-height: 1.1;
   margin: 0.6rem 0 0.8rem;
-  color: #1a1a1a;
+  color: #e8edf2;
 }
 
 /* ===== SECCIÓN: CTA FINAL ===== */

@@ -6,7 +6,11 @@ import 'leaflet/dist/leaflet.css';
 
 // Centro aproximado de Costa Rica, usado como vista inicial.
 const CENTRO_CR = [9.7489, -83.7534];
-const ZOOM_INICIAL = 7;
+const ZOOM_INICIAL = 10;
+const LIMITES_CR = [
+  [8.0, -86.1],
+  [11.3, -82.3],
+];
 
 /**
  * Mapa interactivo de la seccion Descubrir (RF-24 a RF-28).
@@ -21,6 +25,10 @@ export default function MapaSitios({ sitios }) {
       <MapContainer
         center={CENTRO_CR}
         zoom={ZOOM_INICIAL}
+        minZoom={7}
+        maxZoom={14}
+        maxBounds={LIMITES_CR}
+        maxBoundsViscosity={1}
         scrollWheelZoom={false}
         className={estilos.mapa}
       >
@@ -28,6 +36,7 @@ export default function MapaSitios({ sitios }) {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          className={estilos.tiles}
         />
 
         {sitios.map((sitio) => (

@@ -4,13 +4,17 @@ import estilos from './GaleriaSitio.module.css';
 /**
  * Galeria de imagenes de la ficha (RF-10).
  * Muestra una imagen principal y miniaturas navegables.
- * Si el sitio no tiene imagenes, muestra un marcador visual.
+ * Si el sitio no tiene imagenes, muestra una portada predeterminada.
  */
 export default function GaleriaSitio({ imagenes, nombre }) {
   const [activa, setActiva] = useState(0);
 
   if (!imagenes || imagenes.length === 0) {
-    return <div className={estilos.ausente} aria-hidden="true" />;
+    return (
+      <div className={estilos.galeria}>
+        <img className={estilos.principal} src="/imagenes/portada.jpg" alt={nombre} />
+      </div>
+    );
   }
 
   const principal = imagenes[activa];

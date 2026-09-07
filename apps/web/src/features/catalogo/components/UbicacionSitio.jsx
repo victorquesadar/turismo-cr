@@ -24,6 +24,26 @@ export default function UbicacionSitio({ latitud, longitud, direccion }) {
         </MapContainer>
       </div>
       {direccion && <p className={estilos.direccion}>{direccion}</p>}
+      <div className={estilos.acciones}>
+        <a
+          className={estilos.botonRuta}
+          href={`https://www.google.com/maps/dir/?api=1&destination=${latitud},${longitud}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src="/imagenes/GoogleMaps.png" alt="Abrir en Google Maps" />
+          <span>Google Maps</span>
+        </a>
+        <a
+          className={estilos.botonRuta}
+          href={`https://www.waze.com/ul?ll=${latitud}%2C${longitud}&navigate=yes`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src="/imagenes/waze.png" alt="Abrir en Waze" />
+          <span>Waze</span>
+        </a>
+      </div>
     </div>
   );
 }
