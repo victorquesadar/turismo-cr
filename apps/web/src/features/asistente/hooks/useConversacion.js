@@ -1,21 +1,50 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { consultarAsistente } from '../services/asistenteService';
 
 /**
  * Maneja el estado de la conversacion con el asistente (RF-38, RF-45).
- * Guarda los mensajes en memoria durante la sesion y las preferencias
- * detectadas en la ultima consulta (RF-41).
+ * Persiste los mensajes en localStorage para que la conversacion sobreviva
+ * a la navegacion entre paginas y a la recarga del navegador (RF-48 basico).
  */
+const CLAVE_MENSAJES = 'asistente:mensajes';
+const CLAVE_CRITERIOS = 'asistente:criterios';
+
+// Recupera del localStorage al iniciar. Si no hay nada o falla, arranca vacio.
+function cargar(clave, valorPorDefecto) {
+  try {
+    const guardado = localStorage.getItem(clave);
+    return guardado ? JSON.parse(guardado) : valorPorDefecto;
+  } catch {
+    return valorPorDefecto;
+  }
+}
+
 export function useConversacion() {
-  const [mensajes, setMensajes] = useState([]);
-  const [criterios, setCriterios] = useState(null);
+  const [mensajes, setMensajes] = useState(() => cargar(CLAVE_MENSAJES, []));
+  const [criterios, setCriterios] = useState(() => cargar(CLAVE_CRITERIOS, null));
   const [cargando, setCargando] = useState(false);
+
+  // Cada vez que cambian los mensajes, se guardan en localStorage.
+  useEffect(() => {
+    try {
+      localStorage.setItem(CLAVE_MENSAJES, JSON.stringify(mensajes));
+    } catch {
+      /* si el navegador no soporta o esta lleno, se ignora */
+    }
+  }, [mensajes]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CLAVE_CRITERIOS, JSON.stringify(criterios));
+    } catch {
+      /* idem */
+    }
+  }, [criterios]);
 
   const enviar = useCallback(async (texto) => {
     const textoLimpio = texto.trim();
     if (!textoLimpio || cargando) return;
 
-    // Agrega el mensaje del usuario de inmediato.
     setMensajes((prev) => [...prev, { emisor: 'usuario', texto: textoLimpio }]);
     setCargando(true);
 
@@ -31,9 +60,7 @@ export function useConversacion() {
         ...prev,
         {
           emisor: 'asistente',
-          texto:
-            e.message ??
-            'No pude procesar tu consulta en este momento. Probá de nuevo en un momento.',
+          texto: e.message ?? 'No pude procesar tu consulta en este momento. Probá de nuevo en un momento.',
           sitios: [],
         },
       ]);
@@ -42,5 +69,15 @@ export function useConversacion() {
     }
   }, [cargando]);
 
-  return { mensajes, criterios, cargando, enviar };
+  // Permite limpiar la conversacion (util para un boton "nueva conversacion").
+  const limpiar = useCallback(() => {
+    setMensajes([]);
+    setCriterios(null);
+    try {
+      localStorage.removeItem(CLAVE_MENSAJES);
+      localStorage.removeItem(CLAVE_CRITERIOS);
+    } catch { /* nada */ }
+  }, []);
+
+  return { mensajes, criterios, cargando, enviar, limpiar };
 }
