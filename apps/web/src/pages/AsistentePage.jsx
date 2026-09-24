@@ -13,7 +13,7 @@ const SUGERENCIAS = [
 
 /** Modulo de Recomendacion Inteligente: asistente virtual (RF-38 a RF-52). */
 export default function AsistentePage() {
-  const { mensajes, criterios, cargando, enviar } = useConversacion();
+  const { mensajes, criterios, cargando, enviar, limpiar } = useConversacion();
   const [entrada, setEntrada] = useState('');
   const finRef = useRef(null);
 
@@ -31,14 +31,35 @@ export default function AsistentePage() {
     enviar(texto);
   };
 
+  const manejarLimpiar = () => {
+    if (mensajes.length === 0) return;
+    if (window.confirm('¿Empezar una nueva conversación? Los mensajes actuales se perderán.')) {
+      limpiar();
+    }
+  };
+
   return (
     <main className={estilos.pagina}>
       <div className={estilos.columnaChat}>
         <header className={estilos.encabezado}>
-          <h1 className={estilos.titulo}>Asistente de viaje</h1>
-          <p className={estilos.subtitulo}>
-            Contame qué tipo de experiencia buscás y te recomiendo lugares de Costa Rica.
-          </p>
+          <div className={estilos.encabezadoFila}>
+            <div>
+              <h1 className={estilos.titulo}>Asistente de viaje</h1>
+              <p className={estilos.subtitulo}>
+                Contame qué tipo de experiencia buscás y te recomiendo lugares de Costa Rica.
+              </p>
+            </div>
+            {mensajes.length > 0 && (
+              <button
+                type="button"
+                onClick={manejarLimpiar}
+                className={estilos.botonNueva}
+                title="Empezar una nueva conversación"
+              >
+                ✕ Nueva conversación
+              </button>
+            )}
+          </div>
         </header>
 
         <div className={estilos.conversacion}>
